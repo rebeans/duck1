@@ -1,0 +1,53 @@
+body {
+    user-select: none;
+    font-family: '굴림체', Arial, sans-serif;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+table {
+    border-collapse: collapse;
+    margin: 0;
+    padding: 0;
+}
+
+th {
+    visibility: hidden;
+    height: 0;
+    border: none;
+    padding: 0;
+    margin: 0;
+}
+
+tr {
+    padding: 0;
+    margin: 0;
+}
+
+td {
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    text-align: center;
+    padding: 2px;
+    margin: 0;
+}
+
+.content-all {
+    width: 70px;
+    height: 85px;
+}
+
+.remark-bor { background-color: #F9F911; }
+.remark-bor-ee { background-color: #F4CB11; }
+.remark-bor-e { background-color: #F49511; }
+.remark-arr { background-color: #FF729D; }
+
+.compact {
+    margin: 1px 0;
+}
+
+.info {
+    font-size: 12px;
+    color: red;
+    padding: 0;
+    margin: 0;
+}
