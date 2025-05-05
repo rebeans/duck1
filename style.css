@@ -78,21 +78,44 @@ td {
     padding: 0;
   }
   
-  .refresh-icon {
-    width: 16px;
-    height: 16px;
+.refresh-icon {
+    width: 18px;
+    height: 18px;
     border: 2px solid white;
-    border-top: 1px solid transparent;
-    border-bottom: 1px solid transparent;
+    border-top: 2px solid transparent;
     border-radius: 50%;
     box-sizing: border-box;
   }
   
-  #refresh-button.loading .refresh-icon {
-    animation: spin 1s linear infinite;
+#nextday-button {
+    position: fixed;
+    bottom: 70px; /* refresh-button보다 위 */
+    right: 20px;
+    z-index: 1000;
+
+    text-decoration: none;
+}
+
+.plus1d-icon {
+    width: 40px;
+    height: 40px;
+    background-color: rgba(76, 175, 80, 0.6); /* 초록색 반투명 */
+    border-radius: 50%;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    user-select: none;
+}
+
+#refresh-button.loading .refresh-icon, #nextday-button.loading .plus1d-icon {
+    animation: spin 1.3s linear infinite;
   }
-  
+
   @keyframes spin {
     to { transform: rotate(360deg); }
   }
-  
