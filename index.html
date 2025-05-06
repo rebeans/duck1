@@ -11,13 +11,16 @@
 <body>
     <div id="flight-scroll-container">
     <div id="flight-info">
-        <span class="info">제1여객터미널(길게 누르면, Flightradar24 연결)</span>
+        <span class="info">T1(길게 누르면 Flightradar24), 접속불가시 녹색버튼 대체 접속</span>
     </div>
     <script src="script.js" defer></script>
     </div>
-    <a id="nextday-button" class="loading" href="https://rebean.duckdns.org/p01_nextday" rel="noopener noreferrer">
+    <div id="duty-button" class="loading" style="cursor: pointer;">
+        <div class="duty-icon">당직</div>
+    </div>
+    <div id="nextday-button" class="loading" style="cursor: pointer;">
         <div class="plus1d-icon">+1D</div>
-    </a>    
+    </div>    
     <button id="refresh-button" class="loading"><div class="refresh-icon"></div></button>
 </body>
 </html>
