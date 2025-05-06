@@ -79,10 +79,11 @@ td {
   }
   
 .refresh-icon {
-    width: 18px;
-    height: 18px;
+    width: 20px;
+    height: 20px;
     border: 2px solid white;
     border-top: 2px solid transparent;
+    border-bottom: 2px solid transparent;
     border-radius: 50%;
     box-sizing: border-box;
   }
@@ -112,7 +113,29 @@ td {
     user-select: none;
 }
 
-#refresh-button.loading .refresh-icon, #nextday-button.loading .plus1d-icon {
+#duty-button {
+    position: fixed;
+    bottom: 120px; /* nextday-button보다 위 */
+    right: 20px;
+    z-index: 1000;
+    cursor: pointer;
+}
+
+.duty-icon {
+    width: 40px;
+    height: 40px;
+    background-color: rgba(248, 122, 122, 0.6); /* 옅은 핑크 */
+    border-radius: 50%;
+    color: white;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    user-select: none;
+}
+
+#refresh-button.loading .refresh-icon, #nextday-button.loading .plus1d-icon, #duty-button.loading .duty-icon {
     animation: spin 1.3s linear infinite;
   }
 
