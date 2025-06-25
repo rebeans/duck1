@@ -29,12 +29,12 @@ td {
     text-align: center;
     padding: 2px;
     margin: 0;
-    line-height: 1.1;
+    line-height: 1;
 }
 
 .content-all {
     width: 70px;
-    height: 85px;
+    height: 80px;
 }
 
 .remark-bor { background-color: #F9F911; }
