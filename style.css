@@ -9,6 +9,7 @@ table {
     border-collapse: collapse;
     margin: 0;
     padding: 0;
+    min-width: max-content;
 }
 
 th {
@@ -29,12 +30,12 @@ td {
     text-align: center;
     padding: 2px;
     margin: 0;
-    line-height: 1;
+    line-height: 1.1;
 }
 
 .content-all {
     width: 70px;
-    height: 80px;
+    height: 85px;
 }
 
 .remark-bor { background-color: #F9F911; }
@@ -140,3 +141,11 @@ td {
   @keyframes spin {
     to { transform: rotate(360deg); }
   }
+
+.sticky-col {
+    position: sticky;
+    left: 0;
+    background-color: white; 
+    z-index: 2;
+    box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+}
