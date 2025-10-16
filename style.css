@@ -88,34 +88,10 @@ td {
     border-radius: 50%;
     box-sizing: border-box;
   }
-  
-#nextday-button {
-    position: fixed;
-    bottom: 70px; /* refresh-button보다 위 */
-    right: 20px;
-    z-index: 1000;
-
-    text-decoration: none;
-}
-
-.plus1d-icon {
-    width: 40px;
-    height: 40px;
-    background-color: rgba(76, 175, 80, 0.6); /* 초록색 반투명 */
-    border-radius: 50%;
-    color: white;
-    font-size: 18px;
-    font-weight: bold;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    user-select: none;
-}
 
 #duty-button {
     position: fixed;
-    bottom: 120px; /* nextday-button보다 위 */
+    bottom: 70px; /* nextday-button보다 위 */
     right: 20px;
     z-index: 1000;
     cursor: pointer;
@@ -134,7 +110,7 @@ td {
     user-select: none;
 }
 
-#refresh-button.loading .refresh-icon, #nextday-button.loading .plus1d-icon, #duty-button.loading .duty-icon {
+#refresh-button.loading .refresh-icon, #duty-button.loading .duty-icon {
     animation: spin 1.3s linear infinite;
   }
 
@@ -145,7 +121,7 @@ td {
 .sticky-col {
     position: sticky;
     left: 0;
-    background-color: white; 
+    background-color: white;
     z-index: 2;
     box-shadow: 2px 0 5px rgba(0,0,0,0.1);
 }
