@@ -1,3 +1,11 @@
+/* ✅ iPhone 길게누르면 텍스트 선택 / 복사 메뉴 뜨는 문제 방지 */
+* {
+    -webkit-touch-callout: none; /* 복사/검색 등 팝업 방지 */
+    -webkit-user-select: none;   /* 텍스트 선택 방지 */
+    user-select: none;           /* 표준 */
+}
+
+
 body {
     user-select: none;
     font-family: '굴림체', Arial, sans-serif;
@@ -54,6 +62,10 @@ td {
 }
 
 .info {
+    width: 100%;
+    max-width: 600px;
+    text-align: left;
+    white-space: nowrap;     /* ✅ 한 줄 유지 */
     font-size: 12px;
     color: red;
     padding: 0;
@@ -89,15 +101,62 @@ td {
     box-sizing: border-box;
   }
 
-#duty-button {
+  #refresh-button.loading .refresh-icon {
+    animation: spin 1.3s linear infinite;
+  }
+
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
+
+  #ir-button {
     position: fixed;
-    bottom: 70px; /* nextday-button보다 위 */
+    bottom: 220px; /* all-button보다 위 */
     right: 20px;
     z-index: 1000;
     cursor: pointer;
+    width: 40px;
+    height: 40px;
+    background-color: rgba(250, 168, 113, 0.8); /* IR 색 */
+    border-radius: 50%;
+    color: white;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    user-select: none;
 }
 
-.duty-icon {
+.all-btn {
+    position: fixed;
+    bottom: 170px;
+    right: 20px;
+    z-index: 1000;
+    width: 40px;
+    height: 40px;
+    background-color: rgba(219, 122, 248, 0.6); /* 옅은 보라 */
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    justify-content: center;
+    padding: 0;
+    color: white;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    user-select: none;
+}
+.all-btn.active {
+    background-color: gray;
+    font-size: 24px;
+}
+
+#duty-button {
+    position: fixed;
+    bottom: 120px; /* calendar-button보다 위 */
+    right: 20px;
+    z-index: 1000;
+    cursor: pointer;
     width: 40px;
     height: 40px;
     background-color: rgba(248, 122, 122, 0.6); /* 옅은 핑크 */
@@ -110,13 +169,24 @@ td {
     user-select: none;
 }
 
-#refresh-button.loading .refresh-icon, #duty-button.loading .duty-icon {
-    animation: spin 1.3s linear infinite;
-  }
-
-  @keyframes spin {
-    to { transform: rotate(360deg); }
-  }
+#calendar-button {
+    position: fixed;
+    bottom: 70px; /* refresh-button보다 위 */
+    right: 20px;
+    z-index: 1000;
+    width: 40px;
+    height: 40px;
+    background-color: rgba(76, 175, 80, 0.6); /* 초록색 반투명 */
+    border-radius: 50%;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    user-select: none;
+}
 
 .sticky-col {
     position: sticky;
@@ -124,4 +194,224 @@ td {
     background-color: white;
     z-index: 2;
     box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+}
+
+.popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100dvh;
+    height: -webkit-fill-available;
+    background: rgba(0,0,0,0.5);
+    display: none;
+    overflow-y: auto;
+    align-items: flex-start;
+    z-index: 9999;
+}
+
+.popup-content {
+    margin: 40px auto;
+    padding: 16px;
+    border-radius: 12px;
+    width: 100%;
+    max-width: 600px;
+    height: auto;
+    max-height: 100dvh;
+    max-height: -webkit-fill-available;
+    overflow-y: auto;
+
+    /* 공통 배경색 */
+    background: rgba(0, 159, 227, 0.5); /* 기본: 당직 색 */
+    color: white;
+}
+
+#ir-popup .popup-content {
+    background: rgba(250, 168, 113, 0.8); /* IR 색 */
+}
+
+.popup-content table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    color: black;
+    margin-top: 10px;
+}
+
+.popup-content td,
+.popup-content tr {
+    border: 1px solid #ccc;
+    padding: 6px;
+    font-size: 14px;
+    text-align: center;
+}
+
+.popup-close {
+    float: right;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+/* body 스크롤 막기 */
+.body-no-scroll {
+    overflow: hidden;
+    touch-action: none; /* iOS 터치 스크롤 방지 */
+}
+
+/* ✅ 팝업 전체 (전체 화면 덮기지만 세로 스크롤 허용) */
+#calendar-popup.popup-overlay {
+    position: fixed;
+
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100dvh;
+    height: -webkit-fill-available;
+
+    background: rgba(0,0,0,0.5);
+    display: none;
+    overflow-y: auto;      /* ✅ 세로 스크롤 허용 */
+    align-items: flex-start; /* ✅ 중앙 정렬 금지 → 위부터 내려오게 */
+    z-index: 9999;
+}
+
+/* ✅ 팝업 안의 실제 콘텐츠 */
+#calendar-popup .calendar-content {
+    background: white;
+    margin: 40px auto;   /* ✅ 화면 상단에 띄우고 자연스럽게 스크롤되도록 */
+    border-radius: 12px;
+    padding: 16px;
+
+    width: 100%;
+    max-width: 600px;
+
+    height: auto;
+    max-height: 100dvh;
+    max-height: -webkit-fill-available;
+
+    overflow-y: auto;
+}
+
+/* ✅ 좌우 스크롤만 calendar-container에서 처리 */
+#calendar-popup .calendar-container {
+    overflow-x: auto;  /* ✅ 가로 스크롤 */
+    overflow-y: visible; /* ✅ 세로 막지 않음 */
+}
+
+/* ✅ 테이블 기본 */
+#calendar-popup table {
+    border-collapse: collapse;
+    min-width: 600px;
+}
+
+/* ✅ 셀 */
+#calendar-popup th,
+#calendar-popup td {
+    visibility: visible !important;
+    border: 1px solid #ccc;
+    padding: 3px 5px;
+    width: 35px;
+    height: 35px;
+    font-size: 1em;
+}
+
+/* ✅ 휴일 */
+#calendar-popup .holiday {
+    background-color: #fffa90 !important;
+}
+
+/* ✅ 월 텍스트 */
+#calendar-popup .month-label {
+    font-weight: bold;
+    font-size: 1.4em;
+}
+
+/* ✅ 날짜 텍스트 */
+#calendar-popup .date {
+    font-weight: bold;
+    display: block;
+    font-size: 1em;
+}
+/* ✅ 요일 텍스트 */
+#calendar-popup .day {
+    font-size: 0.85em;
+    color: #666;
+    display: block;
+}
+
+/* ✅ 표 제목 */
+#calendar-popup .table-title {
+    text-align: left;
+    font-weight: bold;
+    font-size: 1em;
+    margin-top: 20px;
+}
+
+/* ✅ 월 이동 헤더 */
+/* ✅ 고정되는 상단 헤더 */
+#calendar-popup .calendar-header-fixed {
+    position: sticky;
+    top: 0;
+    background: white;
+    padding: 10px;
+    z-index: 100;
+    text-align: center;
+    position: relative;
+}
+
+/* ✅ 첫 열 고정 */
+#calendar-popup td:first-child,
+#calendar-popup th:first-child {
+    color: black !important;
+    position: sticky;
+    left: 0;
+    background-color: #f0f0f0 !important;
+    z-index: 20;
+}
+
+/* ✅ 닫기 버튼 */
+#calendar-popup .popup-close {
+    color: black;
+    background: none;
+    border: none;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    position: absolute;
+    right: 15px;
+    top: 10px;
+}
+
+/* ✅ 좌우 스크롤 영역 */
+#calendar-popup .calendar-container {
+    overflow-x: auto;
+    margin-top: 10px;
+}
+
+.holiday-note {
+    width: 100%;
+    max-width: 600px;
+    text-align: left;
+    white-space: nowrap;     /* ✅ 한 줄 유지 */
+}
+.holiday-note small {
+    color: red;
+    font-size: 0.8em;
+}
+
+/* 오늘 날짜 열 기본 테두리 (td만 해당) */
+td.today-col {
+    border-left: 3px solid #ff3b3b !important;
+    border-right: 3px solid #ff3b3b !important;
+}
+
+/* 맨 위/아래 셀도 td 전용 */
+td.today-col-top {
+    border-top: 3px solid #ff3b3b !important;
+}
+td.today-col-bottom {
+    border-bottom: 3px solid #ff3b3b !important;
 }
