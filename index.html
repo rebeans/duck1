@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Flight status</title>
+    <title>T1스케줄</title>
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="style.css">
@@ -18,16 +18,55 @@
 </script>
 </head>
 <body>
-    <div id="flight-scroll-container">
-    <div id="flight-info">
-        <span class="info">T1(길게 누르면 Flightradar24)</span>
+<div id="flight-scroll-container">
+    <span class="info"></span>
+    <div id="ir-button">페리</div>
+    <button id="showAllBtn" class="all-btn"><div>전체</div></button>
+    <div id="duty-button">당직</div>
+    <div id="calendar-button">근무</div>
+    <button id="refresh-button"><div class="refresh-icon"></div></button>
+</div>
+
+<!-- ✅ 당직 스케줄 팝업 -->
+<div id="duty-popup" class="popup-overlay">
+    <div class="popup-content">
+        <button id="duty-popup-close" class="popup-close">닫기 ✕</button>
+        <h3>도착 스케줄(당직)</h3>
+        <table id="duty-arr-table"></table>
+        <h3>출발 스케줄(당직)</h3>
+        <table id="duty-dep-table"></table>
     </div>
-    <div id="duty-button" class="loading" style="cursor: pointer;">
-        <div class="duty-icon">당직</div>
-    </div>    
-    <button id="refresh-button" class="loading"><div class="refresh-icon"></div></button>
-    <script src="script.js" defer></script>
+</div>
+
+<!-- ✅ IR 스케줄 팝업 -->
+<div id="ir-popup" class="popup-overlay">
+    <div class="popup-content">
+        <button id="ir-popup-close" class="popup-close">닫기 ✕</button>
+        <h4 style="color:black;">국내선/국제선 페리(금일 항공편만 제공)</h4>
+        <h3>도착</h3>
+        <table id="ir-arr-table"></table>
+        <h3>출발</h3>
+        <table id="ir-dep-table"></table>
     </div>
+</div>
+
+<div id="calendar-popup" class="popup-overlay">
+    <div class="calendar-content">
+        <!-- ✅ 스크롤되는 달력 밖으로 분리된 헤더 -->
+        <div class="calendar-header-fixed">
+            <button id="prevMonth">◀</button>
+            <span id="monthLabel" class="month-label"></span>
+            <button id="nextMonth">▶</button>
+
+            <button id="calendar-popup-close" class="popup-close">닫기 ✕</button>
+        </div>
+
+        <!-- ✅ 가로 스크롤 영역 -->
+        <div class="calendar-container">
+            <div id="calendarDiv"></div>
+        </div>
+    </div>
+</div>
+<script src="script.js" defer></script>
 </body>
 </html>
-
